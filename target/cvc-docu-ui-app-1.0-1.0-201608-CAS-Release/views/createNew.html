@@ -1,0 +1,141 @@
+
+<div class="container-fluid">
+<div class="contentBody">
+<span class="arn-heading-font">Loan application number:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{newCtrl.applicationNumber}}</span>
+</div>
+<br>
+    <section class="content-container  container contentBody" >
+            <br>
+            <notification >
+                <notification-event name="CreateNewCase"></notification-event>
+            </notification>
+
+            <notification >
+                <notification-event name="UploadAtleastOneDocument"></notification-event>
+            </notification>
+
+            <notification >
+                <notification-event name="DocumentList"></notification-event>
+            </notification>
+          </br>
+
+          <div ng-hide="newCtrl.errorResponseFromCreateService">
+            <div ng-show="newCtrl.showDocumentsSection">
+            <div ng-repeat = "customer in newCtrl.customers">
+              <div class="panel ">
+	               <div class="panel-heading">
+		                 <span class="">
+                       <div class="row">
+                         <div class="col-xs-6 col-sm-5 col-lg-3">
+                           <span class="iconbox-item icon icon-size-md icon-person align-vertical"></span>
+                           <span class="table-font">&nbsp; Name:&nbsp;&nbsp;&nbsp;{{customer.customerNameText}}</span>
+                         </div>
+                           <div class="col-xs-6 col-sm-5 col-lg-3"><span class="table-font">CIS Key:&nbsp;&nbsp;&nbsp;{{customer.cisKey}}</span></div>
+                         <div class=" col-sm-2 col-lg-6"></div>
+                       </div>
+                     </span>
+	                  </div>
+                    <br>
+	                   <div class="panel-body">
+                       <div class="row">
+                         <div class="col-xs-4 col-sm-3 col-lg-2 col-md-2">
+                           <span class="table-font">Salary/Wages</span>
+                         </div>
+                         <div class="col-xs-4 col-sm-4 col-lg-4 col-md-4">
+                          <!--<span class="iconbox-item icon icon-size-md icon-upload align-vertical"></span><span class="table-font">&nbsp;<i>Drag and drop files below to upload</i></span>-->
+                         </div>
+                         <div class="col-xs-1 col-sm-4 col-lg-4 col-md-4">
+                         </div>
+                         <div class="col-xs-3 col-sm-3 col-lg-2 col-md-2">
+                          <span class="table-font">Subtotal:&nbsp;$0.00{{}}</span>
+                         </div>
+                       </div>
+                       <hr>
+                       <div class="arn-heading-font table-font"><i>Upload the files of type .pdf, .png, .bmp, .jgeg, .gif or .tiff. The maximum size of a document should be 20 MB.</i></div>
+                       <br>
+                       <div class="table-responsive"  >
+                             <div class="table-highlight"  ng-repeat = "document in customer.documents | limitTo : customer.showDocumentListLength" >
+                                <div class="pointer-cursor" ng-click="newCtrl.documentUploadSectionAccordion(document.documentTypeDetails.documentName + customer.cisKey)" drag-and-drop="[image/gif,image/jpeg,image/png,image/tiff,image/bmp,image/x-bmp,image/x-bitmap,image/x-xbitmap,image/x-win-bitmap,image/x-windows-bmp,image/ms-bmp,image/x-ms-bmp,application/bmp,application/x-bmp,application/x-win-bitmap,application/pdf]"
+                                      file="image" max-file-size="20971520" file-name="imageFileName"  file-type="{{document.documentTypeDetails}}" customer-cisKey = "{{customer.cisKey}}">
+                                      <div class="row document-type-heading document-type-heading-first{{$index}}" >
+                                        <div class="table-font col-xs-3 col-lg-3" >{{document.documentTypeDetails.documentName}} ({{document.documentUploaded.length}})</div>
+                                        <div class="col-xs-6  col-lg-7">
+                                           <span class="table-font">
+                                             <span class="iconbox-item icon icon-size-md icon-upload align-vertical"></span>&nbsp;<i>Drag and drop files below to upload</i>
+                                           </span>
+                                        </div>
+                                        <div class="col-xs-3  col-lg-2 pull-right">
+                                            <label for="{{'file-upload' + $index + customer.cisKey}}" class="custom-file-upload btn btn-neutral">
+                                              Choose a file
+                                            </label>
+                                            <input type="file" id="{{'file-upload' + $index +  customer.cisKey}}"
+                                            drag-and-drop="[image/gif,image/jpeg,image/png,image/tiff,image/bmp,image/x-bmp,image/x-bitmap,image/x-xbitmap,image/x-win-bitmap,image/x-windows-bmp,image/ms-bmp,image/x-ms-bmp,application/bmp,application/x-bmp,application/x-win-bitmap,application/pdf]"
+                                             max-file-size="20971520" multiple choose-a-file file-type="{{document.documentTypeDetails}}" customer-cisKey = "{{customer.cisKey}}" />
+                                        </div>
+                                      </div>
+                                <div ng-show="document.showDocuments" class="document-uploaded-section" ng-class="{'document-upload-section-close' : newCtrl.activeDroppedDocumentType !=  (document.documentTypeDetails.documentName+customer.cisKey), 'document-upload-section-open' : newCtrl.activeDroppedDocumentType ===  (document.documentTypeDetails.documentName+customer.cisKey)}">
+                                  <br>
+                                  <div class="panel panel-default">
+	                                   <div class="panel-heading">
+		                                     <div class="panel-title row">
+                                           <div class="col-xs-3">Document name</div>
+                                           <div class="col-xs-2">Upload date</div>
+                                           <div class="col-xs-2">Upload status</div>
+                                           <div class="col-xs-2">Process status</div>
+                                           <div class="col-xs-2">Amount</div>
+                                           <div class="col-xs-1"></div>
+                                         </div>
+	                                      </div>
+
+
+	                                       <div class="table-responsive">
+		                                         <table class="table table-striped">
+			                                            <tbody>
+                                                    <tr ng-repeat="doc in document.documentUploaded">
+                                                      <td class="documents-uploaded-name">{{doc.uploadedDocumentName}}</td>
+                                                      <td class="documents-uploaded-info">{{doc.uploadDate}}</td>
+                                                      <td class="documents-uploaded-info">{{doc.documentStatus}}</td>
+                                                      <td class="documents-uploaded-info">{{doc.processStatus}}</td>
+                                                      <td class="documents-uploaded-info"> $ &nbsp; {{doc.amount}}</td>
+                                                      <td class="document-uploaded-delete-button"><span ng-show="doc.showDeleteButton" ng-click="newCtrl.deleteDraggedDocument(doc, $index, customer.cisKey)" class="pointer-cursor iconbox-item icon icon-size-md icon-delete"></span></td>
+                                                    </tr>
+      	                                           </tbody>
+		                                               </table>
+	                                                </div>
+                                                </div>
+
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="show-more-less-link align-center"><a href ng-click="newCtrl.showMoreThanSixDocuments(customer.cisKey)" class="back-arrow"><span class="back-arrow" ng-show="customer.showMoreLink">&#8897; &nbsp;Show more</span><span class="back-arrow" ng-hide="customer.showMoreLink">&#8896; &nbsp;Show less</span> </a></div>
+                        </div>
+                        <div  ng-show="newCtrl.isUploadingFilesFlag" class="align-center">
+                          <div class="align-center upload-loading page-heading">
+                            <p class="upload-loading-image">  Loading...</p>
+                            <div class="iconbox-item icon icon-size-md icon-loading"></div>
+                          </div>
+                        </div>
+	                     </div>
+                     </div>
+                    </div>
+                  </div>
+                  <div ng-show="newCtrl.showLoadingMessage">
+                    Loading...
+                  </div>
+                </div>
+            <br>
+            </section>
+      <div ng-hide="newCtrl.errorResponseFromCreateService">
+        <div ng-show="newCtrl.showDocumentsSection">
+        <section class="content-container  container contentBody" >
+          <div class="row button-group">
+            <div class="col-xs-2"><button class="btn btn-hero" ng-click="newCtrl.uploadFiles()">Upload file/s</button></div>
+            <div class="col-xs-10"></div>
+          </div>
+          </section>
+        </div>
+      </div>
+
+
+
+</div>

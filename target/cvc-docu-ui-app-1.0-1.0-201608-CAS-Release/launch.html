@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>CVC Document Upload</title>
+    <link href="css/gui.min.css" rel="stylesheet" ng-if="brand == 'BOM'">
+    <!--<link href="css/symbols.fallback.css" rel="stylesheet" ng-if="brand == 'BOM'">-->
+    <link href="css/symbols.data.png.css" rel="stylesheet" ng-if="brand == 'BOM'">
+    <link href="css/symbols.data.svg.css" rel="stylesheet" ng-if="brand == 'BOM'">
+    <link href="css/bom.forms.min.css" rel="stylesheet" ng-if="brand == 'BOM'">
+    <link href="css/site-0.1.1.min.css" rel="stylesheet" ng-if="brand == 'BOM'">
+    <link href="css/bom.custom.css" rel="stylesheet" ng-if="brand == 'BOM'">
+</head>
+<body>
+<header ui-view="header"></header>
+<div ui-view="content">
+
+</div>
+</body>
+
+<script type="text/javascript" src="js/vendor/angular.js"></script>
+<script type="text/javascript" src="js/vendor/angular-ui-router.js"></script>
+<script type="text/javascript" src="js/vendor/angular-cookies.js"></script>
+<script type="text/javascript" src="js/vendor/ui-bootstrap-tpls-0.12.0.js"></script>
+<script type="text/javascript" src="js/vendor/lodash.min.js"></script>
+
+<script type="text/javascript" src="js/core/app.js"></script>
+<script type="text/javascript" src="js/core/app-run-config.js"></script>
+<script type="text/javascript" src="js/core/state.js"></script>
+<script type="text/javascript" src="js/factory/service-urls.js"></script>
+<script type="text/javascript" src="js/factory/service-notification.js"></script>
+<script type="text/javascript" src="js/factory/form-data-factory.js"></script>
+<script type="text/javascript" src="js/service/cookie-util.js"></script>
+<script type="text/javascript" src="js/service/rest-service.js"></script>
+<script type="text/javascript" src="js/controllers/header-controller.js"></script>
+<script type="text/javascript" src="js/controllers/modalPopupController.js"></script>
+<script type="text/javascript" src="js/controllers/dashboard-controller.js"></script>
+<script type="text/javascript" src="js/controllers/create-new-controller.js"></script>
+<script type="text/javascript" src="js/directives/service-notification-directive.js"></script>
+<script type="text/javascript" src="js/directives/drag-and-drop.js"></script>
+<script type="text/javascript" src="js/directives/choose-a-file.js"></script>
+<script type="text/javascript" src="js/core/user-roles.js"></script>
+
+
+
+
+
+</html>

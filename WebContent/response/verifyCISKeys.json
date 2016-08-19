@@ -1,0 +1,69 @@
+{
+	"status": "SUCCESS",
+	"resource": "Verify CISKey Results",
+	"successResult": {
+		"cisKeysList": [{
+			"cisKey": 12345678901,
+			"status": "success",
+			"customerName": "Sam Lean",
+			"message": "CISKey verified successfully",
+			"isCisKeyVerified" : true
+		}, {
+			"cisKey": 12345678902,
+			"status": "success",
+			"customerName": "John Adam",
+			"message": "CISKey verified successfully",
+				"isCisKeyVerified" : true
+		}, {
+			"cisKey": 12345678903,
+			"status": "error",
+			"customerName": "",
+			"message": "CISKey verification is unsuccessfully",
+			"isCisKeyVerified" : false
+		},
+		{
+			"cisKey": 12345678904,
+			"status": "success",
+			"customerName": "Johny Ray",
+			"message": "CISKey verified successfully",
+				"isCisKeyVerified" : true
+		},
+		{
+			"cisKey": 12345678905,
+			"status": "success",
+			"customerName": "Johniee Stay ",
+			"message": "CISKey verified successfully",
+				"isCisKeyVerified" : true
+		},
+		{
+			"cisKey": 12345678906,
+			"status": "success",
+			"customerName": "Monika Singh",
+			"message": "CISKey verified successfully",
+				"isCisKeyVerified" : true
+		},
+		{
+			"cisKey": 12345678907,
+			"status": "success",
+			"customerName": "Abhi Samy",
+			"message": "CISKey verified successfully",
+				"isCisKeyVerified" : true
+		},
+		{
+			"cisKey": 12345678908,
+			"status": "success",
+			"customerName": "Ronny John",
+			"message": "CISKey verified successfully",
+				"isCisKeyVerified" : true
+		}]
+	},
+	"errorResult": {
+    "errorCategory": "Error",
+    "errors": [
+      {
+        "errorCode": "SYSTEM_ERROR",
+        "errorMessage": "Verification Service is currently unavailable"
+      }
+    ]
+  }
+}

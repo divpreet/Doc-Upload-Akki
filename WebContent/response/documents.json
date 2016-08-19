@@ -1,0 +1,81 @@
+{
+	"status": "SUCCESS",
+	"resource": "List of docs",
+	"successResult": [{
+		"docTypeId": 1013,
+		"documentName": "Rental Estimate",
+		"minDocumentCount": 1,
+		"maxDocumentSize": 5
+	}, {
+		"docTypeId": 1014,
+		"documentName": "Balance Sheet",
+		"minDocumentCount": 1,
+		"maxDocumentSize": 5
+	}, {
+		"docTypeId": 1000,
+		"documentName": "Payslips",
+		"minDocumentCount": 2,
+		"maxDocumentSize": 5
+	}, {
+		"docTypeId": 1001,
+		"documentName": "Bank Statements",
+		"minDocumentCount": 2,
+		"maxDocumentSize": 5
+	}, {
+		"docTypeId": 1002,
+		"documentName": "PAYG Payment Summary",
+		"minDocumentCount": 1,
+		"maxDocumentSize": 5
+	}, {
+		"docTypeId": 1003,
+		"documentName": "ATO Notice of Assessment",
+		"minDocumentCount": 1,
+		"maxDocumentSize": 5
+	}, {
+		"docTypeId": 1004,
+		"documentName": "Personal Tax Return",
+		"minDocumentCount": 1,
+		"maxDocumentSize": 5
+	}, {
+		"docTypeId": 1005,
+		"documentName": "Employer’s Letter",
+		"minDocumentCount": 1,
+		"maxDocumentSize": 5
+	}, {
+		"docTypeId": 1006,
+		"documentName": "Self-Employed Income Worksheet",
+		"minDocumentCount": 1,
+		"maxDocumentSize": 5
+	}, {
+		"docTypeId": 1007,
+		"documentName": "Partnership Tax Return",
+		"minDocumentCount": 1,
+		"maxDocumentSize": 5
+	}, {
+		"docTypeId": 1008,
+		"documentName": "Trust/Company Tax Return",
+		"minDocumentCount": 1,
+		"maxDocumentSize": 5
+	}, {
+		"docTypeId": 1009,
+		"documentName": "Profit/Loss Statement",
+		"minDocumentCount": 1,
+		"maxDocumentSize": 5
+	}, {
+		"docTypeId": 1010,
+		"documentName": "Rental Income Statement",
+		"minDocumentCount": 1,
+		"maxDocumentSize": 5
+	}, {
+		"docTypeId": 1011,
+		"documentName": "Rental Opinion Letter",
+		"minDocumentCount": 2,
+		"maxDocumentSize": 5
+	}, {
+		"docTypeId": 1012,
+		"documentName": "Residential Lease Agreement",
+		"minDocumentCount": 1,
+		"maxDocumentSize": 5
+	}],
+	"errorResult": null
+}

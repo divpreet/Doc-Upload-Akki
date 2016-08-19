@@ -1,0 +1,355 @@
+<div class="container-fluid">
+
+	<section class="content-container  container contentBody">
+		<!-- accordion start -->
+		<div class="tabcordion tabcordion-lego tabcordion-accordion">
+			<div class="tabcordion-body-header js-collapsible-tab "
+				ng-class="{'is-active' : dashCtrl.activetabcordion == 'Create'}">
+				<a href ng-click="dashCtrl.tabcordionClicked('Create')"
+					class="tabcordion-body-headline js-collapsible "><span
+					class="iconbox-item icon icon-size-md icon-add-a align-vertical"></span>&nbsp;
+					<span class="arn-heading-font">Create a new case</span></a>
+			</div>
+			<div class="collapsible-body "
+				ng-class="{'is-open' : dashCtrl.activetabcordion == 'Create','is-close' :  dashCtrl.activetabcordion != 'Create'}"
+				aria-hidden="{{dashCtrl.activetabcordion != 'Create'}}"
+				tabindex="-1">
+				<div class="tabcordion-body">
+					<div class="row">
+						<div class="col-xs-3"></div>
+						<div class="col-xs-6">
+							<notification> <notification-event
+								name="validateARN"></notification-event> </notification>
+							<notification> <notification-event
+								name="verifyCisKey"></notification-event> </notification>
+						</div>
+						<div class="col-xs-4"></div>
+					</div>
+					<div ng-show="dashCtrl.showARNLoading == true" class="align-center">
+						<div>
+							<span class="text-primary table-font">{{dashCtrl.pageMessages.arn_wait_message}}</span>
+						</div>
+						<div class="iconbox-item icon icon-size-md icon-loading"></div>
+					</div>
+
+					<!-- Rewrite code started -->
+					<div class="row" ng-form="arnForm">
+						<div class="col-xs-3">
+						<b class="table-font align-right" >&nbsp; &nbsp;{{dashCtrl.pageMessages.application_number_label}} <span class="mandatory">*</span></b>
+						</div>
+						<div class="col-xs-3">
+							<input type="text" maxlength="7" class="input-field" ng-change="dashCtrl.onArnFieldChange()" ng-focus="dashCtrl.clearArnRelatedScreenErrors()" ng-trim="false" ng-blur="dashCtrl.validateARN()" ng-model="dashCtrl.arn" name="inputARN" required />
+							<!--<div><span class="table-font text-danger" ng-show="arnForm.inputARN.$error.pattern || (dashCtrl.arn.length < 7 &&  dashCtrl.arn.length > 0)" >{{dashCtrl.pageMessages.arn_max_length_error}}</span></div>-->
+							<div><span class="table-font text-danger" ng-show="dashCtrl.isArnLengthValid" >{{dashCtrl.pageMessages.arn_max_length_error}}</span></div>
+							<div><span class="table-font text-danger" ng-show="dashCtrl.showMandatoryArnError" >Enter a Class application number</span></div>
+						</div>
+				    </div>
+				    </br>
+				    <div class="row">
+						<div class="col-xs-3">
+						<b class="table-font align-right">{{dashCtrl.pageMessages.customers_label}} <span class="mandatory">*</span></b>
+						</div>
+						<div class="col-xs-6">
+
+							<div class="table-responsive">
+                         <form name="cisKeyForm" novalidate>
+                           <table class="table table-striped" >
+                             <thead>
+                               <tr>
+                                 <th scope="col" class="col-xs-1"></th>
+                                 <th scope="col" class="table-font col-xs-5">{{dashCtrl.pageMessages.ciskey_label}}</th>
+                                 <th scope="col" class="table-font col-xs-8">{{dashCtrl.pageMessages.customer_number_label}}</th>
+                                 <th scope="col" class="trans-background"></th>
+                               </tr>
+                             </thead>
+                             <tbody>
+                               <tr ng-repeat="customerDetail in dashCtrl.customerDetails" ng-form="keyForm">
+
+                                 <td class="table-font" width="1%"><i>{{customerDetail.srNumber}}.</i><span ng-if="customerDetail.srNumber==1" ></span></td>
+                                 <td width="40%">
+                                 <input type="text" maxlength="11" ng-blur="dashCtrl.validateLengthOfCiskeyField($index)" class="input-field" ng-change="dashCtrl.onChangeOfCisKey($index)" ng-trim="false" ng-focus="dashCtrl.onCisKeyFocus($index)" ng-model="customerDetail.cisKey" name="inputCisKey" required placeholder="Enter CIS key"/>
+                                 <!--<div><span class="table-font text-danger" ng-show="(!customerDetail.displayDelete && keyForm.inputCisKey.$error.required && !keyForm.inputCisKey.$pristine) || (dashCtrl.showMandatoryMessageFlag && customerDetail.srNumber==1 && customerDetail.cisKey.length!=11)">{{dashCtrl.pageMessages.mandatory_ciskey_field_error}}</span></div>-->
+																 <div><span class="table-font text-danger" ng-show="customerDetail.mandatoryCisKeyEnteredFlag">{{dashCtrl.pageMessages.mandatory_ciskey_field_error}}</span></div>
+                                 <!--<div><span class="table-font text-danger" ng-show="keyForm.inputCisKey.$error.pattern || (customerDetail.cisKey.length > 0 && customerDetail.cisKey.length <11)" >{{dashCtrl.pageMessages.valid_ciskey_field_error}}</span></div>-->
+																 <div><span class="table-font text-danger" ng-show="customerDetail.patternError" >{{dashCtrl.pageMessages.valid_ciskey_field_error}}</span></div>
+                                </td>
+                                 <td td width="80%">
+                                    <div><span class="table-font" ng-show="(customerDetail.cisKey==='' || customerDetail.cisKey=== undefined )"><i>{{customerDetail.customerNameText}}</i></span></div>
+                                    <div><span class="table-font" ng-show="(keyForm.inputCisKey.$dirty || !keyForm.inputCisKey.$dirty) && keyForm.inputCisKey.$valid " name="displayCustomerName"><i>{{customerDetail.customerNameText}}</i></span></div>
+                                 </td>
+								<!-- <table><tbody><tr> -->
+                                 <td class="trans-background"><span class="iconbox-item icon icon-delete pointer-cursor" ng-click="dashCtrl.deleteCustomerKeyRow($index)" ng-show="customerDetail.displayDelete" ></span></td>
+								<!-- </tr></tbody></table> -->
+                               </tr>
+                             </tbody>
+                            </table>
+                           </form>
+                         </div>
+						</div>
+				    </div>
+
+				    <div class="row">
+						<div class="col-xs-3">
+						</div>
+						<div class="col-xs-3">
+							<table>
+							<tr>
+                                 <td><button type="button" ng-click="dashCtrl.addCustomerKeyRow()" class="btn btn-hero btn-soft button-padding-white">{{dashCtrl.pageMessages.add_customer_button}}</button></td>
+                                 <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                 <td><button type="button" ng-click="dashCtrl.verifyCiskey()" class="btn btn-hero btn-soft button-padding-white">{{dashCtrl.pageMessages.verify_ciskey_button}}</button></td>
+                                 <td></td>
+                                 <td></td>
+                             </tr>
+							</table>
+							</br>
+							<table>
+                                	<tr>
+								    <td ng-show="dashCtrl.isArnValid && dashCtrl.isPrimaryKeyVerified">
+								     <div><span>
+								     	<button type="button" ng-click="dashCtrl.saveAndCreate()" class="btn btn-neutral button-padding-grey">{{dashCtrl.pageMessages.proceed_button}}</button></span></div>
+								    </td>
+								    <td ng-show="!(dashCtrl.isArnValid && dashCtrl.isPrimaryKeyVerified)">
+								     <div><span>
+								     	<button type="button" ng-click="" class="btn btn-neutral button-padding-grey" disabled>{{dashCtrl.pageMessages.proceed_button}}</button></span></div>
+								    </td>
+							  		</tr>
+                             </table>
+						</div>
+				    </div>
+
+
+					<!-- rewrite code ended -->
+				</div>
+			</div>
+
+			<div class="tabcordion-body-header js-collapsible-tab"
+				ng-class="{'is-active' : dashCtrl.activetabcordion == 'Search'}">
+				<a href ng-click="dashCtrl.tabcordionClicked('Search')"
+					class="tabcordion-body-headline js-collapsible "><span
+					class="iconbox-item icon icon-size-md icon-search align-vertical"></span>&nbsp;<span
+					class="arn-heading-font">Search existing cases</span></a>
+			</div>
+			<div class="collapsible-body"
+				ng-class="{'is-open' : dashCtrl.activetabcordion == 'Search','is-close' :  dashCtrl.activetabcordion != 'Search'}"
+				aria-hidden="{{dashCtrl.activetabcordion != 'Search'}}"
+				tabindex="-1">
+				<div class="tabcordion-body">
+					<div class="row">
+						<div class="col-xs-4 section-separator">
+							<div class="row">
+								<div class="col-xs-2"></div>
+								<div class="col-xs-8">
+									<span class="table-font">{{dashCtrl.pageMessages.start_new_message}}</span>
+								</div>
+								<div class="col-xs-2"></div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-xs-2"></div>
+								<div class="col-xs-8">
+									<button class="btn btn-lg btn-primary"
+										ng-click="dashCtrl.createNewCase()">{{dashCtrl.pageMessages.start_new_button}}</button>
+								</div>
+								<div class="col-xs-2"></div>
+							</div>
+						</div>
+						<div class="col-xs-8">
+							<div class="row">
+								<div class="col-xs-1"></div>
+								<div class="col-xs-8">
+									<span class="table-font">{{dashCtrl.pageMessages.search_message}}</span>
+								</div>
+								<div class="col-xs-3"></div>
+							</div>
+							<br>
+
+							<div class="row">
+								<form name="searchForm" novalidate>
+									<div class="col-xs-1"></div>
+									<div class="col-xs-8">
+										<div class="input-addon">
+											<label class="input-addon-label"> <span
+												class="input-addon-text">searchByHFM</span> <input
+												type="text" maxlength="7"
+												class="input-addon-input input-addon-search"
+												ng-pattern="dashCtrl.loanWriterPattern"
+												placeholder="Search by Loan Writer"
+												ng-model="dashCtrl.enteredHFM" required name="formHFMSearch">
+											</label>
+											<button type="submit" ng-click="dashCtrl.searchBy('HFM')"
+												class="input-addon-btn">
+												<span class="iconbox-item icon icon-size-sm icon-search"></span>
+											</button>
+										</div>
+										<div>
+											<span class="text-danger"
+												ng-show="searchForm.formHFMSearch.$error.required && searchForm.formHFMSearch.$dirty">{{dashCtrl.pageMessages.mandatory_loan_writer_search_field_error}}</span>
+										</div>
+										<div>
+											<span class="text-danger"
+												ng-show="searchForm.formHFMSearch.$error.pattern ">{{dashCtrl.pageMessages.valid_loan_writer_search_field_error}}</span>
+										</div>
+										<div>
+											<span class="text-danger"
+												ng-show="dashCtrl.showHFMErrorMessage == true && searchForm.formHFMSearch.$pristine">{{dashCtrl.pageMessages.mandatory_loan_writer_search_field_error}}</span>
+										</div>
+									</div>
+
+									<div class="col-xs-3"></div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="tabcordion-body-header js-collapsible-tab "
+				ng-class="{'is-active' : dashCtrl.activetabcordion == 'View'}">
+				<a href ng-click="dashCtrl.tabcordionClicked('View')"
+					class="tabcordion-body-headline js-collapsible "><span
+					class="iconbox-item icon icon-size-md icon-clock align-vertical"></span>&nbsp;<span
+					class="arn-heading-font">View recent cases (last 90 days)</span></a>
+			</div>
+			<div class="collapsible-body"
+				ng-class="{'is-open' : dashCtrl.activetabcordion == 'View','is-close' :  dashCtrl.activetabcordion != 'View'}"
+				aria-hidden="{{dashCtrl.activetabcordion != 'View'}}" tabindex="-1">
+				<div class="tabcordion-body">
+					<notification> <notification-event
+						name="loggedInUserARNList"></notification-event> </notification>
+					<div ng-show="dashCtrl.showLoading == true" class="align-center">
+						<div>
+							<span class="text-primary table-font">Please wait while
+								the list of Loan application number for
+								{{dashCtrl.loggedInUserId}} is loaded..</span>
+						</div>
+						<div class="iconbox-item icon icon-size-md icon-loading"></div>
+					</div>
+					<div
+						ng-show="dashCtrl.ARNListIsEmpty == false && dashCtrl.arnListServiceFetchStatus.toUpperCase() == 'SUCCESS'">
+						<div >
+							<table class="table table-striped" ng-init="orderByField='-lastUpdateDateParsed'">
+								<thead>
+									<tr class="table-highlight recent-cases-table">
+										<th scope="col">
+                      <a class="pointer-cursor table-font  back-arrow"  ng-click="dashCtrl.orderByField='arn'; dashCtrl.reverseSort = !dashCtrl.reverseSort" href="">
+                        {{dashCtrl.pageMessages.search_results_table_col1}}&nbsp;
+                        <span ng-show="(dashCtrl.orderByField === 'arn' && dashCtrl.reverseSort) && dashCtrl.showSortingButtons" >
+                          <img src="images/u482.png">
+                        </span>
+                        <span ng-show="(dashCtrl.orderByField === 'arn' && !dashCtrl.reverseSort) && dashCtrl.showSortingButtons">
+                          <img src="images/u478.png">
+                        </span>
+                        <span ng-show="(!(dashCtrl.orderByField === 'arn' && !dashCtrl.reverseSort) && !(dashCtrl.orderByField === 'arn' && dashCtrl.reverseSort)) && dashCtrl.showSortingButtons">
+                          <img src="images/u482.png" class="sort-arrow-descending">
+                          <img src="images/u478.png" class="sort-arrow-ascending">
+                        </span>
+                      </a>
+                    </th>
+										<th scope="col">
+                      <a class="pointer-cursor back-arrow table-font " ng-click="dashCtrl.orderByField='displayNames'; dashCtrl.reverseSort = !dashCtrl.reverseSort" href="">
+                        {{dashCtrl.pageMessages.search_results_table_col2}} &nbsp;
+                        <span ng-show="(dashCtrl.orderByField === 'displayNames' && dashCtrl.reverseSort) && dashCtrl.showSortingButtons" >
+                          <img src="images/u482.png">
+                        </span>
+                        <span ng-show="(dashCtrl.orderByField === 'displayNames' && !dashCtrl.reverseSort) && dashCtrl.showSortingButtons">
+                          <img src="images/u478.png">
+                        </span>
+                        <span ng-show="(!(dashCtrl.orderByField === 'displayNames' && !dashCtrl.reverseSort) && !(dashCtrl.orderByField === 'displayNames' && dashCtrl.reverseSort)) && dashCtrl.showSortingButtons">
+                          <img src="images/u482.png" class="sort-arrow-descending">
+                          <img src="images/u478.png" class="sort-arrow-ascending">
+                        </span>
+                      </a>
+                    </th>
+										<th scope="col">
+                      <a class="pointer-cursor back-arrow table-font " ng-click="dashCtrl.orderByField='lastUpdateDateParsed'; dashCtrl.reverseSort = !dashCtrl.reverseSort" href="">
+                        {{dashCtrl.pageMessages.search_results_table_col3}}&nbsp;
+                        <span ng-show="(dashCtrl.orderByField === 'lastUpdateDateParsed' && dashCtrl.reverseSort) && dashCtrl.showSortingButtons" >
+                          <img src="images/u482.png">
+                        </span>
+                        <span ng-show="(dashCtrl.orderByField === 'lastUpdateDateParsed' && !dashCtrl.reverseSort) && dashCtrl.showSortingButtons">
+                          <img src="images/u478.png">
+                        </span>
+                        <span ng-show="(!(dashCtrl.orderByField === 'lastUpdateDateParsed' && !dashCtrl.reverseSort) && !(dashCtrl.orderByField === 'lastUpdateDateParsed' && dashCtrl.reverseSort)) && dashCtrl.showSortingButtons">
+                          <img src="images/u482.png" class="sort-arrow-descending">
+                          <img src="images/u478.png" class="sort-arrow-ascending">
+                        </span>
+                      </a>
+                    </th>
+									</tr>
+								</thead>
+              </div>
+            </table>
+            <div ng-class="{'table-scroll' : dashCtrl.showScrollBar === true }">
+							<table class="table table-striped" ng-init="orderByField='-lastUpdateDateParsed'">
+								<tbody>
+									<tr class="table-highlight recent-cases-table"
+										ng-repeat="x in dashCtrl.arnDetails | orderBy:dashCtrl.orderByField:dashCtrl.reverseSort">
+                    <div class="">
+										<td><a class="pointer-cursor table-font break-word">{{x.arn}}</a></td>
+										<td class="table-font break-word">{{x.displayNames}}</td>
+										<td class="table-font break-word" >{{x.lastUpdate}}<span style="display : none;">{{x.lastUpdateDateParsed}}</span></td>
+                    </div>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+
+					<!--	<div class="pagination align-center">
+							<span class="pagination-sronly">Pagination:</span>
+							<ul class="pagination-list">
+								<li
+									ng-class="{'is-disabled' : dashCtrl.showPaginationBackButton == false}">
+									<a class="pagination-page" href=""
+									ng-click="dashCtrl.getPreviousTenRecords()" rel="prev"
+									ng-show="dashCtrl.showPaginationBackButton == true"> <span
+										class="pagination-sronly">Step</span> Back <span
+										class="pagination-sronly">one page</span>
+								</a> <a class="pagination-page" href="" rel="prev"
+									ng-show="dashCtrl.showPaginationBackButton == false"> <span
+										class="pagination-sronly">Step</span> Back <span
+										class="pagination-sronly">one page</span>
+								</a>
+								</li>
+
+
+								<li ng-repeat="i in dashCtrl.pagesToBeDisplayed"
+									ng-class="{'is-active' : i.selected == true }"><a
+									class="pagination-page" href=""
+									ng-click="dashCtrl.getCurrentTenRecords(i.id)"> <span
+										class="pagination-sronly">Go to page</span> {{i.id}}
+								</a></li>
+
+								<li
+									ng-class="{'is-disabled': dashCtrl.showPaginationNextButton == false}">
+									<a class="pagination-page pointer-cursor"
+									ng-click="dashCtrl.getNextTenRecords()" rel="next"
+									ng-show="dashCtrl.showPaginationNextButton == true"> <span
+										class="pagination-sronly">Step to the</span> Next <span
+										class="pagination-sronly">page</span>
+								</a> <a class="pagination-page" rel="next"
+									ng-show="dashCtrl.showPaginationNextButton == false"> <span
+										class="pagination-sronly">Step to the</span> Next <span
+										class="pagination-sronly">page</span>
+								</a>
+								</li>
+							</ul>
+						</div>-->
+					</div>
+					<div class="table-responsive"
+						ng-show="dashCtrl.ARNListIsEmpty == true && dashCtrl.arnListServiceFetchStatus.toUpperCase() == 'SUCCESS'">
+						<div role="alert" class="alert js-alert alert-warning">
+							<div class="alert-body">
+								<strong>Warning!</strong> {{dashCtrl.emptyARNListMessage}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- accordion end -->
+	</section>
+	<!-- ended -->
+</div>

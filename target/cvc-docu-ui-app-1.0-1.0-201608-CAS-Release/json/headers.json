@@ -1,0 +1,8 @@
+{
+  "brand" : "BOM",
+  "product" : "HL",
+  "siteType":"D",
+  "crossDomain": true,
+  "Content-Type": "application/json",
+  "Accept":"application/json"
+}

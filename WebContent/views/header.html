@@ -1,0 +1,22 @@
+
+
+<div class="container-fluid">
+    <br>
+    <div class="contentBody">
+        <div class="row">
+            <div class="col-xs-5" >
+                <span class="brand-font page-heading" ng-show="headCtrl.currentState == 'root.dashboard'">{{headCtrl.pageMessages.income_verification_centre_heading}}</span>
+                <span class="brand-font page-heading" ng-show="headCtrl.currentState == 'root.createNew'"> &nbsp; &nbsp;<span><a class="back-arrow pointer-cursor" ng-click="headCtrl.back()"><</a></span>&nbsp;&nbsp;Home</span>
+            </div>
+            <div class="col-xs-3"></div>
+            <div class="col-xs-2 ">
+                <h4 class="text-primary logged-in-message">{{headCtrl.pageMessages.logged_in_message}}  {{headCtrl.loggedInUserId}}</h4>
+            </div>
+            <div class="col-xs-1">
+                <button class="btn btn-md btn-primary log_out_button" ng-click="headCtrl.logOut()">{{headCtrl.pageMessages.log_out_button}}</button>
+            </div>
+        </div>
+        <hr>
+    </div>
+    <br>
+    </div>

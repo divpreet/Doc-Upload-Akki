@@ -1,0 +1,11 @@
+<div ng-show="notifyCtrl.showAlert" role="alert" ng-class="{'alert-danger':notifyCtrl.typeOfAlert=='ERROR','alert-warning':notifyCtrl.typeOfAlert=='WARNING'}" class="alert js-alert">
+    <div class="alert-body">
+      <div ng-if="notifyCtrl.eventName !== 'UploadAtleastOneDocument'">
+            <strong>{{notifyCtrl.typeOfAlert}} !</strong>
+          </div>
+        <div ng-repeat="alert in notifyCtrl.alerts">
+            {{alert.msg}}
+        </div>
+        <div ng-transclude></div>
+    </div>
+</div>

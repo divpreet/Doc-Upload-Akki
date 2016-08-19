@@ -1,0 +1,72 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>cvc-docu-ui-app</groupId>
+	<artifactId>cvc-docu-ui-app</artifactId>
+	<version>1.0-${artifact.version}</version>
+	<packaging>war</packaging>
+	<distributionManagement>
+		<repository>
+			<id>serviceonline</id>
+			<name>serviceonline</name>
+			<url>http://sso-nexus.intranet.westpac.com.au:8081/nexus/content/repositories/serviceonline</url>
+		</repository>
+	</distributionManagement>
+       <properties>              
+              <artifact.version>1.0-201608-CAS-Release</artifact.version>              
+       </properties>
+
+	
+	
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+					<fork>true</fork>
+					
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<warSourceDirectory>WebContent</warSourceDirectory>
+					<webXml>${basedir}/WebContent/WEB-INF/web.xml</webXml>
+					<archive>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>${basedir}/WebContent/WEB-INF/lib</directory>
+							<includes>
+								<include>**/*.*</include>
+							</includes>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.18.1</version>
+				<configuration>
+					<skipTests>true</skipTests>
+				</configuration>
+			</plugin>
+			
+		</plugins>
+	</build>
+</project>

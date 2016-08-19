@@ -1,0 +1,14 @@
+{
+    "status": "ERROR",
+    "resource": "Retrieve ARN",
+    "successResult": "SUCCESS",
+    "errorResult": {
+        "errorCategory": "ERROR",
+        "errors": [
+            {
+                "errorCode": "ERROR IN ARN RETRIEVAL",
+                "errorMessage": "ARNDetails could not be retrieved for arn # 4567891-"
+            }
+        ]
+    }
+}
